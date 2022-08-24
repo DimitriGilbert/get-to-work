@@ -1,0 +1,12 @@
+# Get To Work
+
+gtfw_workspace=GTFW
+gtfw_workspace_directory=/home/didi/worskpace/Code/getToWork
+gtfw_execute=()
+
+# to add stuff:
+#  gtfw_execute+=("a_command 'with argument' --and-option")
+
+gtfw_execute+=("code '$gtfw_workspace_directory/getToWork.code-workspace'")
+gtfw_execute+=("terminator --config-json='$gtfw_workspace_directory/.terminator' --title '$gtfw_workspace' >/dev/null 2>&1 &")
+

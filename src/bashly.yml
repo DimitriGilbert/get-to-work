@@ -1,0 +1,88 @@
+name: gtfw
+help: Get To Work
+version: 0.0.1
+
+environment_variables:
+- name: config_directory
+  help: Config directory
+
+commands:
+- name: start
+  help: Start the workspace
+
+  flags:
+  - long: --directory
+    short: -d
+    arg: directory
+    help: Run in specified directory
+    default: $(pwd)
+  - long: --execute
+    short: -e
+    arg: gtfw_execute_option
+    help: Execute a command in workspace
+    repeatable: true
+  - long: --save
+    help: Execute a command in workspace
+    repeatable: true
+  - long: --gtfw-file
+    help: load a diffent file
+    arg: gtfw_file
+    default: .gtfw
+  default: true
+  
+  examples:
+  - gtfw start
+  
+- name: init
+  alias: s
+  help: Init the workspace
+  
+  args:
+  - name: workspace_name
+    default: $(pwd)
+    help: Workspace name
+
+  flags:
+  - long: --directory
+    short: -d
+    arg: directory
+    help: Run in specified directory
+    default: $(pwd)
+  - long: --execute
+    short: -e
+    arg: gtfw_execute_option
+    help: Execute a command in workspace
+    repeatable: true
+  - long: --force
+    short: -f
+    help: force if exists
+  - long: --gtfw-file
+    arg: gtfw_file
+    help: load a diffent file
+    default: .gtfw
+  
+- name: add-execute
+  help: Add another execute on workspace start
+  
+  args:
+  - name: execute
+    help: command to execute
+    repeatable: true
+
+  flags:
+  - long: --directory
+    short: -d
+    arg: directory
+    help: Run in specified directory
+    default: $(pwd)
+  - long: --gtfw-file
+    arg: gtfw_file
+    help: load a diffent file
+    default: .gtfw
+  - long: --group
+    arg: group
+    help: group to add to
+  
+  examples:
+  - gtfw add-execute "git status"
+  

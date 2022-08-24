@@ -1,0 +1,13 @@
+{
+	"layout": {
+    "vertical":false,
+		"tab": [
+			{
+        "command": "cd ..; zsh"
+			},
+			{
+				"command": "git status; zsh"
+			}
+		]
+	}
+}
