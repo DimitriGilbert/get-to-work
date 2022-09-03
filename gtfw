@@ -101,8 +101,13 @@ gtfw_start_usage() {
     echo
 
     # :flag.usage
-    echo "  --save (repeatable)"
+    echo "  --save"
     printf "    Execute a command in workspace\n"
+    echo
+
+    # :flag.usage
+    echo "  --group GTFW_EXECUTE_GROUP"
+    printf "    Command group to execute\n"
     echo
 
     # :flag.usage
@@ -291,15 +296,24 @@ inspect_args() {
 # :command.function
 gtfw_start_command() {
   # src/start_command.sh
-  inspect_args
+  # inspect_args
+  # shellcheck source=../.gtfw
 
   source "${args[--directory]}/${args[--gtfw-file]}"
 
-  if [ "${args[--execute]}" != "" ]; then
-    eval "gtfw_execute+=(${args[--execute]})";
+  exgp="gtfw_execute";
+  if [ "${args[--group]}" != "" ]; then
+    exgp+="_${args[--group]}";
   fi
 
-  for gtfw_ex in "${gtfw_execute[@]}"; do
+  if [ "${args[--execute]}" != "" ]; then
+    eval "${exgp}+=(${args[--execute]})";
+  fi
+
+  toexarr=()
+  eval "toexarr=(\"\${${exgp}[@]}\")";
+
+  for gtfw_ex in "${toexarr[@]}"; do
     # echo "executing : $gtfw_ex";
     eval "$gtfw_ex";
   done;
@@ -482,8 +496,23 @@ gtfw_start_parse_requirements() {
     --save )
 
       # :flag.case_no_arg
-      (( args[--save]+=1 ))
+      args[--save]=1
       shift
+      ;;
+
+    # :flag.case
+    --group )
+
+      # :flag.case_arg
+      if [[ -n ${2+x} ]]; then
+
+        args[--group]="$2"
+        shift
+        shift
+      else
+        printf "%s\n" "--group requires an argument: --group GTFW_EXECUTE_GROUP"
+        exit 1
+      fi
       ;;
 
     # :flag.case

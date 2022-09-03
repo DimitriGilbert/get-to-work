@@ -23,7 +23,9 @@ commands:
     repeatable: true
   - long: --save
     help: Execute a command in workspace
-    repeatable: true
+  - long: --group
+    arg: gtfw_execute_group
+    help: Command group to execute
   - long: --gtfw-file
     help: load a diffent file
     arg: gtfw_file

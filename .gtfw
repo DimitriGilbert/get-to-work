@@ -10,3 +10,5 @@ gtfw_execute=()
 gtfw_execute+=("code '$gtfw_workspace_directory/getToWork.code-workspace'")
 gtfw_execute+=("terminator --config-json='$gtfw_workspace_directory/.terminator' --title '$gtfw_workspace' >/dev/null 2>&1 &")
 
+gtfw_execute+=("/home/didi/bin/dev_screen")
+gtfw_execute_stop+=("/home/didi/bin/dev_screen --stop")
